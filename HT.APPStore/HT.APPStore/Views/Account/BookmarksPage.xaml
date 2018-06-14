@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+		     xmlns:controls="clr-namespace:HT.APPStore.Controls;assembly=HT.APPStore"
+             xmlns:cells="clr-namespace:HT.APPStore.Cells;assembly=HT.APPStore"
+             x:Class="HT.APPStore.Views.Account.BookmarksPage"
+             x:Name="BookmarksPage"
+             Title="我的收藏">
+    <ContentPage.Content>
+        <controls:LoadMoreListView
+            x:Name="BookmarksListView"
+            ItemsSource="{Binding Bookmarks}"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="True"
+            RefreshCommand="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsBusy}"
+            LoadMoreCommand="{Binding LoadMoreCommand}"
+            LoadStatus="{Binding LoadStatus}"
+            CanLoadMore="{Binding CanLoadMore}"
+            BackgroundColor="White"
+            SeparatorColor="{StaticResource Divider}">
+            <controls:LoadMoreListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <cells:BookmarksItemCellView 
+                            EditCommand="{Binding Path=EditCommand, Source={x:Reference BookmarksPage}}"
+                            DeleteCommand="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference BookmarksPage}}"/>
+                    </ViewCell>
+                </DataTemplate>
+            </controls:LoadMoreListView.ItemTemplate>
+        </controls:LoadMoreListView>
+    </ContentPage.Content>
+</ContentPage>
